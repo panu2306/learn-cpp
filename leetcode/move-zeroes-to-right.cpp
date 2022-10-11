@@ -23,6 +23,12 @@ Constraints:
 
 using namespace std; 
 
+void swap(int& a, int& b){
+	a = a + b;
+	b = a - b;
+	a = a - b;
+}
+
 class Solution{
 	public:
 		int moveZeros(vector<int>& arr){
@@ -31,12 +37,9 @@ class Solution{
 
 			for(int i = 0; i < size; i++){
 				if(arr[i] != 0){
-					arr[left_index] = arr[i];
+					swap(arr[left_index], arr[i]);
 					left_index++;
 				}
-			}
-			for(int i = left_index; i < size; i++){
-				arr[i] = 0;
 			}
 
 			return left_index-1;	
