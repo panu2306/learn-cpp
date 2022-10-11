@@ -34,15 +34,19 @@ class Solution{
 		int moveZeros(vector<int>& arr){
 			int size = arr.size();
 			int left_index = 0;
-
-			for(int i = 0; i < size; i++){
-				if(arr[i] != 0){
-					swap(arr[left_index], arr[i]);
-					left_index++;
-				}
+			
+			if(size == 1){
+				return 0;
 			}
-
-			return left_index-1;	
+			else{
+				for(int i = 0; i < size; i++){
+					if(arr[i] != 0){
+						swap(arr[left_index], arr[i]);
+						left_index++;
+					}
+				}
+				return left_index-1;	
+			}
 		}
 };
 
