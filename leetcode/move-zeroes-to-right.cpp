@@ -23,36 +23,26 @@ Constraints:
 
 using namespace std; 
 
-void swap(int& a, int& b){
-	a = a + b;
-	b = a - b;
-	a = a - b;
-}
-
 class Solution{
 	public:
 		int moveZeros(vector<int>& arr){
 			int size = arr.size();
 			int left_index = 0;
 			
-			if(size == 1){
-				return 0;
-			}
-			else{
-				for(int i = 0; i < size; i++){
-					if(arr[i] != 0){
-						swap(arr[left_index], arr[i]);
-						left_index++;
-					}
+			for(int i = 0; i < size; i++){
+				if(arr[i] != 0){
+					swap(arr[left_index], arr[i]);
+					left_index++;
 				}
-				return left_index-1;	
 			}
+
+			return left_index-1;	
 		}
 };
 
 int main(){
 	Solution s;
-	vector<int> v = {0, 1, 0, 3, 12};
+	vector<int> v = {1};//{0, 1, 0, 3, 12};
 
 	int n_zeros_moved = s.moveZeros(v);
 
