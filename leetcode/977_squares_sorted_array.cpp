@@ -24,15 +24,36 @@ using namespace std;
 class Solution {
 public:
     vector<int> sortedSquares(vector<int>& nums) {
-	/*for(auto i=0; i<nums.size(); i++){
-		nums[i] = pow(nums[i], 2);
-	}*/
-	// for(auto& num: nums) pow(num, 2); -->Why this doesn't work?? - Figure out!!!!
-	for(auto& n : nums){
-           n *= n;
-	}
-	sort(nums.begin(), nums.end());
-	return nums;
+	    // intuitive approch - 
+	    int size = nums.size();
+	    vector<int> sorted_vec(size);
+	    int left{};
+	    int right{size-1};
+
+	    while(left <= right) {
+		int result{};
+	    	if(abs(nums[left]) > abs(nums[right])) {
+			result = nums[left] * nums[left];
+			left++;
+		}
+		else {
+			result = nums[right] * nums[right];
+			right--;
+		}
+		sorted_vec[size-1] = result;
+		size--;
+	    }
+	    
+	    return sorted_vec;
+	    // General Approach - 
+		/*
+		for(auto& n : nums){
+		   n *= n;
+		}
+		sort(nums.begin(), nums.end());
+		return nums;
+		*/
+	
     }
 
 };
