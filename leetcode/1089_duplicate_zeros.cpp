@@ -24,23 +24,23 @@ class Solution {
 public:
     void duplicateZeros(vector<int>& arr) {
 	int size = arr.size();
-	/*for(size_t i=0; i<size-1; i++){
-		if(arr[i]==0){
-			for(size_t j=size-1; j>i; j--){
-				arr[j] = arr[j-1];
-			}
-			i++;
-		}
-	}*/
+	int length = size - 1; 
 	int countZeros = 0; 
-	for(size_t i=0; i<size; i++){
-		if(arr[i]==0){
+
+	for(size_t i=0; i <= length - countZeros; i++){
+		if(arr[i]==0) {
+			if(i == length - countZeros) {
+				arr[length] = 0;
+				length -= 1;
+				break;
+			}
 			countZeros += 1;
 		}
 	}
-	int end = size-1;
-	cout << end << endl;
-	for(size_t i=end; i>0; i--){
+
+	int end = length - countZeros; 
+	
+	for(size_t i = end; i > 0; i--){
 		if(arr[i]==0){
 			arr[i+countZeros] = 0;
 			countZeros--;
