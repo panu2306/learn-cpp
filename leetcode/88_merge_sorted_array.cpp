@@ -1,4 +1,6 @@
 /*
+PROBLEM - 88. Merge Sorted Array 
+
 You are given two integer arrays nums1 and nums2, sorted in non-decreasing order, and two integers m and n, representing the number of elements in nums1 and nums2 respectively.
 
 Merge nums1 and nums2 into a single array sorted in non-decreasing order.
@@ -6,6 +8,7 @@ Merge nums1 and nums2 into a single array sorted in non-decreasing order.
 The final sorted array should not be returned by the function, but instead be stored inside the array nums1. To accommodate this, nums1 has a length of m + n, where the first m elements denote the elements that should be merged, and the last n elements are set to 0 and should be ignored. nums2 has a length of n.
 
  
+
 Example 1:
 Input: nums1 = [1,2,3,0,0,0], m = 3, nums2 = [2,5,6], n = 3
 Output: [1,2,2,3,5,6]
@@ -27,62 +30,49 @@ Note that because m = 0, there are no elements in nums1. The 0 is only there to 
  
 
 Constraints:
-1. nums1.length == m + n
-2. nums2.length == n
-3. 0 <= m, n <= 200
-4. 1 <= m + n <= 200
-5. -109 <= nums1[i], nums2[j] <= 109
+
+nums1.length == m + n
+nums2.length == n
+0 <= m, n <= 200
+1 <= m + n <= 200
+-109 <= nums1[i], nums2[j] <= 109
+ 
+
+Follow up: Can you come up with an algorithm that runs in O(m + n) time?
 */
 
 #include <bits/stdc++.h>
-using namespace std;
 
-void merge_vectors(vector<int> nums1, vector<int> nums2, int m, int n){
-	int i = 0;
-	int j = 0;
-	vector<int> v;
+using namespace std; 
 
-	while(i<m and j<n){
-		if(nums1[i] <= nums2[j]){
-			v.push_back(nums1[i++]);
-		}else{
-			v.push_back(nums2[j++]);
-		}
-	}
-	while(j<n){
-		v.push_back(nums2[j++]);
-	}
+class Solution {
+public:
+    void merge(vector<int>& nums1, int m, vector<int>& nums2, int n) {
+        int length = nums1.size();
+        int p{length-1}, p1{m-1}, p2{n-1};
 
-	for(int i=0; i<m+n; i++){
-		nums1[i] = v[i];
-		cout << nums1[i] << " ";
-	}
+        while(p2 >= 0) {
+            if(p1 >= 0 and nums1[p1] > nums2[p2]) {
+                nums1[p--] = nums1[p1--]; 
+            }
+            else {
+                nums1[p--] = nums2[p2--];
+            }
+        }
 
+	for(int ele : nums1)
+		cout << ele << " "; 
 	cout << endl;
+    }
+};
 
-}
+int main() {
+	Solution s;
+	vector<int> nums1{1,2,3,0,0,0};
+	int m{3}; 
+	vector<int> nums2{2,5,6};
+	int n{3};
+		
+	s.merge(nums1, m, nums2, n);
 
-int main(){
-	vector<int> nums1 = {1,2,3,0,0,0};
-	int m = 3;
-	vector<int> nums2 = {2,5,6};
-	int n = 3;
-
-	int j = 0;
-	while(j<n){
-		nums1[m+j] = nums2[j];
-		j++;
-	}
-	sort(nums1.begin(), nums1.end());
-	for(size_t j=0; j<m+n; j++) cout << nums1[j] << " ";
-	cout << endl;
-
-	// second method - 
-	vector<int> nums3 = {1, 2, 3, 0, 0, 0};
-	vector<int> nums4 = {2, 5, 6};
-	int m1 = 3;
-	int n1 = 3;
-
-	merge_vectors(nums3, nums4, m1, n1);
-	return 0;
 }
